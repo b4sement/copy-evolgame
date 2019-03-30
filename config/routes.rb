@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   get 'static_pages/leher'
-  root 'application#hello'
+  root 'static_pages#leher'
 end
