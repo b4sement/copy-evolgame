@@ -12,27 +12,38 @@ this is <a href="https://youtu.be/IWd-2HmtQ_Y" target="_blank">after</a> the col
 
 <h1>le Her</h1>
 <p>
-There is a book that talks about precursors in mathematical economics, in which mentions a Waldegrave who lived in late 17th century. He studied a game called <i>le Her </i> in French which is <i> the gentleman </i> in English and <i> der Herr </i> in German. He communicated with Monmort about his thoughts on how the game can be played. Monmort then forwarded the thread to Bernoulli and the three formed a slack.
+There is a book that talks about precursors in mathematical economics, in which mentions a Waldegrave who lived in late 17th century. He studied a game called <i>le Her </i> in French which is <i> the gentleman </i> in English and <i> der Herr </i> in German. He communicated with Monmort about his thoughts on how the game <i>should<i> be played. Monmort then forwarded the thread to Bernoulli and the three (variants said that there are some others) formed a slack.
 </p>
 <p>
-Anyway, while the two latter mathematicians were discussing on ways of playing and the probability of winning followed by doing so, Waldegrave went further to describe a way of mixing over these <i>ways</i>, and made a remark that it was "such an unusual way of playing". It is truly remarkable that extra step Waldegrave took, because it comes just as natural.
+Anyway, while the two latter mathematicians were discussing on ways of playing and the probability of winning for each way of playing, Waldegrave went further to describe a way of mixing over these <i>ways</i>, and made a remark that it was "such an unusual way of playing". It is truly remarkable that extra step Waldegrave took, especially because the way it is deducted seems just as natural as it is strange.
 </p>
 
 <h2> The game </h2>
-<i> as described by Kuhn </i>
-<p> There are two players: A and B. A deals B a single card at random from an ordinary deck of cards, then deals a single card to himself; neither sees the card dealt to the other. The cards have value in order from the lowest to highest: ace, two, three.. ten, jack, queen, king. Who has higher card wins. So if B is not satisfied with his card, she can tell A to exchange cards, except if A has dealt herself a king, in that case A automatically wins. If B tells to exchange, and after the exchange, A is not happy, A can exchange it for another card dealt from the deck at random. However, if the third card dealt from the deck is a king, the exchange is not allowed and A has to keep her card and automatically loses. They now compare cards and who has higher card wins. If they hold equal cards, A wins.
+<i> adapted from Kuhn's description </i>
+<p> There are two players: A and B. A deals B a single card at random from an ordinary deck of cards, then deals a single card to himself; neither sees the card dealt to the other. The cards have value in order from the lowest to highest: ace, two, three.. ten, jack, queen, king.</p>
+
+<p> Who has higher card wins. So if B is not satisfied with his card, she can tell A to exchange cards, except if A has dealt herself a king, in that case A automatically wins. If B tells to exchange, and after the exchange, A is not happy, A can exchange it for another card dealt from the deck at random. </p>
+<p>However, if the third card dealt from the deck is a king, the exchange is not allowed and A has to keep her card and automatically loses. They now compare cards and who has higher card wins. If they hold equal cards, A wins.
 </p>
 
 <h2> Different ways to play </h2>
 <p>
-Because there are 13 possible cards, a way to play (policy) has to tell a player what to do in all 13 cases where she receives one of the 13 cards.
+Because there are 13 possible cards, a way to play (a policy) need to describe to you what to do in all 13 cases in which you possibly receive one of those 13 cards.
 </p>
 
-<p> Here is one such way, as an example: </p>
+<p> For player B, here is one such way, as an example: </p>
 
+<code>
 
-
+  | A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+  |---|---|---|---|---|---|---|---|---|----|---|---|---|
+  | C | C | H | C | H | C | C | C | C | C  | H | H | H |
   
+</code>
+
+<p>With C is to change the card, and H is to hold the card. We can see that, with 13 slots and each slot has 2 possible actions (C or H), the total possibility is 2^13. We can call one way to play a strategy, and the set of 2^13 strategy is the strategy set or strategy space.</p>
+
+  <p> Similarly, player A has the same strategy space. </p>
 
 <footer>
   Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a>
