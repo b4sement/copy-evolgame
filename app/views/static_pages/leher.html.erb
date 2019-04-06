@@ -90,10 +90,14 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
 
 <p> With (Ace, Ace), and (Change, Change): B changes. A knows that B now has Ace, and Ace loses to all other cards. So the probability in the first cell is 0.  </p>
 
-<p> With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left). The probability to win for B is 3/50.</p>
+<p> With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left or one of the 4 kings). The probability to win for B is 7/50.</p>
 
 
-as if simultaneous
+<p> Mamma mia, let's try to automate this process of filling this table </p>
+
+<p> Need: We need to write a function that inputs 2 strategies by 2 players, and 2 cards dealt to 2 players, respectively and outputs the probability to win of B.</p>
+
+
 
 
 
