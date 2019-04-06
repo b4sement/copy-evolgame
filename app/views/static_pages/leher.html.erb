@@ -12,7 +12,7 @@ this is <a href="https://youtu.be/IWd-2HmtQ_Y" target="_blank">after</a> the col
 
 <h1>le Her</h1>
 <p>
-There is a book that talks about precursors in mathematical economics, in which mentions a Waldegrave who lived in late 17th century. He studied a game called <i>le Her </i> in French which is <i> the gentleman </i> in English and <i> der Herr </i> in German. He communicated with Monmort about his thoughts on how the game <i>should<i> be played. Monmort then forwarded the thread to Bernoulli and the three (variants said that there are some others) formed a slack.
+There is a book that talks about precursors in mathematical economics, in which mentions a Waldegrave who lived in late 17th century. He studied a game called <i>le Her </i> in French which is <i> the gentleman </i> in English and <i> der Herr </i> in German. He communicated with Monmort about his thoughts on how the game <i>should</i> be played. Monmort then forwarded the thread to Bernoulli and the three (variants said that there are some others) formed a slack.
 </p>
 <p>
 Anyway, while the two latter mathematicians were discussing on ways of playing and the probability of winning for each way of playing, Waldegrave went further to describe a way of mixing over these <i>ways</i>, and made a remark that it was "such an unusual way of playing". It is truly remarkable that extra step Waldegrave took, especially because the way it is deducted seems just as natural as it is strange.
@@ -33,17 +33,69 @@ Because there are 13 possible cards, a way to play (a policy) need to describe t
 
 <p> For player B, here is one such way, as an example: </p>
 
-<code>
+<pre>
 
   | A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
   |---|---|---|---|---|---|---|---|---|----|---|---|---|
   | C | C | H | C | H | C | C | C | C | C  | H | H | H |
-  
-</code>
 
-<p>With C is to change the card, and H is to hold the card. We can see that, with 13 slots and each slot has 2 possible actions (C or H), the total possibility is 2^13. We can call one way to play a strategy, and the set of 2^13 strategy is the strategy set or strategy space.</p>
+</pre>
 
-  <p> Similarly, player A has the same strategy space. </p>
+<p>With C is to change the card, and H is to hold the card. We can see that, with 13 slots and each slot has 2 possible actions (C or H), the total possibility is 2^13. We can call one way to play a strategy, and the set of 2^13 strategy is the strategy set.</p>
+
+<p> Similarly, player A has the same strategy set. </p>
+
+<p> If we start to plot the 2^13 x 2^12 strategy space in our head, it gets difficult. </p>
+
+<p> Let's make a systematic move that would drastically weed out <i> dominated </i> strategies (i.e. ones that are clearly weaker). All the strategies in the form of a mixed sequence of C and H here and there (like, C C C H C C H C H..) are dominated by one of those 14 strategies with k first components are C and the rest are H (like C C C H H H H..) </p>
+
+<p> We have 14 strategies left, and in those, we can do that again. Think about the saying: change the low card and hold the high one. From B's point of view, if she is dealt a low card, she feels like to change and if dealt a high card, she feels like to keep. For B, the tie is at card 7. If dealt 8 and above, she keeps, if received 6 and below, she changes. If dealt 7, she needs to think. From A's point of view, the tie is at card 8. If dealt 8, she needs to think. All the other strategies are dominated by these ones.  </p>
+
+<pre>
+
+   | A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+   |---|---|---|---|---|---|---|---|---|----|---|---|---|
+A1 | C | C | C | C | C | C | C | C | H | H  | H | H | H |
+A2 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
+B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
+B2 | C | C | C | C | C | C | H | H | H | H  | H | H | H |
+
+</pre>
+
+Let's match A1 with B1 and calculate the matrix of probability to win for B in 13x13=169 possible deals:
+
+<pre>
+
+B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+-----|---|---|---|---|---|---|---|---|---|----|---|---|---|
+   A |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   1 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   2 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   3 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   4 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   5 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   6 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   7 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   8 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   9 |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   10|   |   |   |   |   |   |   |   |   |    |   |   |   |
+   J |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   Q |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   K |   |   |   |   |   |   |   |   |   |    |   |   |   |
+   
+   
+</pre>
+
+<p>If A is dealt a K, the probability to win for B is 0 regardless of the card B got. So the last column is filled with 0. Except the last column, if B is dealt a K, B automatically wins. The last row (except the last column) is filled with 1.</p>
+
+<p> With (Ace, Ace), and (Change, Change): B changes. A knows that B now has Ace, and Ace loses to all other cards. So the probability in the first cell is 0.  </p>
+
+<p> With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left). The probability to win for B is 3/50.</p>
+
+
+as if simultaneous
+
+
 
 <footer>
   Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a>
