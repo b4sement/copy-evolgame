@@ -1,6 +1,6 @@
 <% provide(:title, "Le Her") %>
 
-<h1> Introduction video </h1>
+<h1> Introduction :) </h1>
 
 <p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bUjlIcKAi7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -47,9 +47,9 @@ Because there are 13 possible cards, a way to play (a policy) need to describe t
 
 <p> If we start to plot the 2^13 x 2^12 strategy space in our head, it gets difficult. </p>
 
-<p> Let's make a systematic move that would drastically weed out <i> dominated </i> strategies (i.e. ones that are clearly weaker). All the strategies in the form of a mixed sequence of C and H here and there (like, C C C H C C H C H..) are dominated by one of those 14 strategies with k first components are C and the rest are H (like C C C H H H H..) </p>
+<p> Let's make a move that would drastically weed out strategies that seem to have no reason at all (i.e. the ones that are clearly <i>dominated</i> by other strategies). All the strategies in the form of a mixed sequence of C and H here and there (like, C C C H C C H C H..) are dominated by one of those 14 strategies with k first components are C and the rest are H (like C C C H H H H..) </p>
 
-<p> We have 14 strategies left, and in those, we can do that again. Think about the saying: change the low card and hold the high one. From B's point of view, if she is dealt a low card, she feels like to change and if dealt a high card, she feels like to keep. For B, the tie is at card 7. If dealt 8 and above, she keeps, if received 6 and below, she changes. If dealt 7, she needs to think. From A's point of view, the tie is at card 8. If dealt 8, she needs to think. All the other strategies are dominated by these ones.  </p>
+<p> We have 14 strategies left, and we can go further to remove some of them. Think about the saying: change the low card and hold the high one. From B's point of view, if she is dealt a low card, she feels like to change and if dealt a high card, she feels like to keep. For B, the tie is at card 7. If dealt 8 and above, she keeps, if received 6 and below, she changes. If dealt 7, she needs to think. From A's point of view, the tie is at card 8. If dealt 8, she needs to think. All the other strategies are dominated by these ones. I plot these survived strategies in the following table:  </p>
 
 <pre>
 
@@ -62,7 +62,7 @@ B2 | C | C | C | C | C | C | H | H | H | H  | H | H | H |
 
 </pre>
 
-Let's match A1 with B1 and calculate the matrix of probability to win for B in 13x13=169 possible deals:
+<p> The next question we ask, let's match A1 and B1, just to see. We know that the deck has 52 cards, comprising of 13 types of cards multiplied by 4 cards for a same number. So each player can receive one of those 13 possible cards. There can be 13*13 = 169 possible outcomes. Let's calculate the probability to win for B in these possible outcomes. </p>
 
 <pre>
 
@@ -86,20 +86,106 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
    
 </pre>
 
-<p>If A is dealt a K, the probability to win for B is 0 regardless of the card B got. So the last column is filled with 0. Except the last column, if B is dealt a K, B automatically wins. The last row (except the last column) is filled with 1.</p>
-
-<p> With (Ace, Ace), and (Change, Change): B changes. A knows that B now has Ace, and Ace loses to all other cards. So the probability in the first cell is 0.  </p>
-
-<p> With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left or one of the 4 kings). The probability to win for B is 7/50.</p>
+<p> If A is dealt a K, A wins at 100%. Therefore the probability to win for B is 0 regardless of the card B got. So the last column is filled with 0. In case B is dealt a K, except for the case that A also get a K, B automatically wins. Therefore the last row (except the last column) is filled with 1. We fill in the table as follows:</p>
 
 
-<p> Mamma mia, let's try to automate this process of filling this table </p>
+<pre>
 
-<p> Need: We need to write a function that inputs 2 strategies by 2 players, and 2 cards dealt to 2 players, respectively and outputs the probability to win of B.</p>
+B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+-----|---|---|---|---|---|---|---|---|---|----|---|---|---|
+   A |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   1 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   2 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   3 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   4 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   5 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   6 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   7 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   8 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   9 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   10|   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   J |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   Q |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   K | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1 | 1 | 0 |
+   
+   
+</pre>
+
+<p> Now let's look at the first cell, it is the one that both are dealt an Ace. To know what to do next, we check their strategies A1 and B1: </p>
+<pre>
+
+   | A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+   |---|---|---|---|---|---|---|---|---|----|---|---|---|
+A1 | C | C | C | C | C | C | C | C | H | H  | H | H | H |
+B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
+
+</pre>
+
+Given an ace, both want to change the card. Hence with (Ace, Ace), and (Change, Change), things happen as follows: B changes. A knows that B now has Ace, and she knows that Ace loses to all other cards. So the probability to win for B in this case is 0. This translates into the action of putting 0 in the first cell. </p>
+
+<pre>
+
+B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+-----|---|---|---|---|---|---|---|---|---|----|---|---|---|
+   A | 0 |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   1 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   2 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   3 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   4 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   5 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   6 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   7 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   8 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   9 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   10|   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   J |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   Q |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   K | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1 | 1 | 0 |
+   
+</pre>
+
+<p> Cool, let's try the next cell. With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left) or one of the 4 kings) because the rules say that if A get a King now, A cannot change and has to keep the Ace. The prospect is 7 cards out of the remaining 50 cards. The probability to win for B therefore is 7/50.</p>
 
 
+<pre>
+
+B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
+-----|---|---|---|---|---|---|---|---|---|----|---|---|---|
+   A | 0 |.14|   |   |   |   |   |   |   |    |   |   | 0 |
+   1 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   2 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   3 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   4 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   5 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   6 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   7 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   8 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   9 |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   10|   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   J |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   Q |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
+   K | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1 | 1 | 0 |
+   
+   
+</pre>
 
 
+<p> Mamma mia, let's try to automate the process of filling this table. </p>
+
+<p> Need: We need to write a function that inputs 2 strategies by 2 players, and 2 cards dealt to 2 players respectively and then outputs the probability to win for B.</p>
+
+<p> We can articulate this task in the following steps: </p>
+
+<ul>
+  <li> If A gets a King, the returned number is 0. </li>
+  <li> After we check for the above condition, we check whether B gets a King. If yes, the returned number is 1. Otherwise, move forward. </li>
+  <li> According to their strategies, do they want to change the card? </li>
+  <li> If B changes, she gets the card of A. At this point we know for sure the card B would hold. </li>
+  <li> If A changes, she gets a new card from the deck. At this point, we can count the number of cards in the deck that favor B. They are cards lower than the one B currently holding and all the Kings. </li>
+</ul>
+
+<p> With this description, you can proceed to express the task in the language of your choice. I probably would write in Racket :) </p>    
+  
 
 <footer>
   Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a>
