@@ -1,6 +1,6 @@
 <% provide(:title, "Le Her") %>
 
-<h1> Introduction :) </h1>
+<h1> Introduction </h1>
 
 <p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bUjlIcKAi7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -184,10 +184,123 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
   <li> If A changes, she gets a new card from the deck. At this point, we can count the number of cards in the deck that favor B. They are cards lower than the one B currently holding and all the Kings. </li>
 </ul>
 
-<p> With this description, you can proceed to express the task in the language of your choice. I probably would write in Racket :) </p>    
+<p> With this description, you can proceed to express the task in the language of your choice. I would write in Racket but I do understand and code in other languages (Python, Ruby, Go, C) and I would like to learn more about other languages (Clojure, R, Matlab etc) so if you have solutions in these languages I would still like to have a look. </p>    
+
+<p> I always try to get a REPL, you may find online REPLs for many langs. </p>
+
+First, I write a function to see if one person want to change the card <code>x</code> or not. Because a strategy can be described as a threshold at which the person starts to hold the card, I call the parameter <code>xhold</code>.
+
+<pre class="prettyprint linenums:1">
   
+  (define (change? x xhold)
+  (>= x xhold))
+  
+</pre>
+
+Second, I write a function to swap the cards, for B to swap if she decides to change:
+
+
+  <pre class="prettyprint linenums:4">
+
+  (define (swap x y)
+  (list y x))
+  
+</pre>
+
+Third, if A does not change her card during the play, we can just compare their cards to decide the probability to win of B. If A holds a card of at least as high as B, A wins.
+
+  <pre class="prettyprint linenums:7">
+
+  (define (compare a b)
+  (if (>= a b) 0 1))
+  
+</pre>
+
+After building the small pieces, now we can write the big function to calculate the probability to win of B in all cases:
+  <pre class="prettyprint linenums:10">
+
+; for the sake of a later for loop
+; I count cards from 0 to 12.
+  
+(define (b-to-win a1 b1 ahold bhold)
+ (cond
+  [(= a1 12) 0]
+  [(= b1 12) 1]
+  [else
+   (begin
+    (match-define (list a2 b2)
+     (if (change? b1 bhold) (swap a1 b1) (list a1 b1)))
+    (define a3 (if (>= a2 ahold) a2 -1))
+    (if (not (= a3 -1))
+     (compare a3 b2)
+     (exact->inexact (/ (+ (smaller b2 a2)
+                        (if (< a2 b2) 4 0)) 50))))]))
+  </pre>
+
+It seems long, but it is a flow of <code> cond </code> and <code> if </code>.
+
+The first act of the game is when the two cards are first dealt, they are stored in variables a1 and b1 respectively. The first two corner cases we can check easily is when A or B gets the King. It goes sequentially so if it enters the second cond clause, it already means that A does not hold a King, and B automatically wins. If none holds a King, the second act of the game begins, with the question whether B wants to change her card or not.
+
+Define new variables a2 b2 to hold the card A and B have in the second act of the game: if B wants to change, the cards are swapped, if not, the cards stay the same but are hold in the new labels.
+
+Then we proceed to the third act of the game: whether A gets a new random card from the deck or not, according to her strategy. If she holds, the card is the same and is stored in the new variable a3, if not, the variable a3 holds the number -1.
+
+At this point the game course ends and we can check the card to see who wins. If A did not change the card in the third act, we can just compare a2 (or a3) and b2. If A draws a new card, to calculate the probability for B to win, we need to calculate the number of cards in the deck that is favorable to B.
+
+A get the one that is smaller than the one currently in B's hand (b2).The number of cards in the deck that are smaller than b2 has to take into account the card already in A's hand.
+
+if a2 is already smaller than b2 AND A get a King. in this case A has to return the King and accept the one she has (a2).
+
+For example, if b2 is 3 and a2 is 2 and A changes, B hopes for A to draw one of those 4 Aces, 3 Twos left in the deck, 4 Kings. If b2 is 3 and a2 is 4 and A changes, B hopes for A to draw one of those 4 Aces and 4 Twos in the deck. In this case, if A get a King, A returns the King and has 4 and still wins.
+
+So we write function <code> how-many-smaller </code>
+  <pre class="prettyprint linenums:27">
+
+(define (how-many-smaller b a)
+        (define counters (range b))
+        (foldl (lambda (nxt init) (if (= nxt a)
+                                      (+ 3 init) (+ 4 init)))
+               0 counters))
+
+</pre>
+
+In the above function, variable counters are the range of cards smaller than the one B holding. And during the fold, if it happens to be equal to the one A currently holding, we only add 3 instead of 4.
+
+We can see that in the big funciton b-to-win, after counting how many smaller cards, we add 4 kings and then divide them all by 50. 50 is the number of cards currently in the deck (2 already in 2 players' hand).
+
+Now this function is to calculate the probability to win for A and B at each possible deal of the cards, regarding their strategy. If we fix the strategy, i.e. for A to hold from 7 and B to hold from 8, we can run a nested for loop through the range of 13 possible cards and generate a matrix for the 13*13=169 possible deals.
+
+  <pre class="prettyprint linenums:33">
+    
+(define (b-to-win-at-78 a1 b1)
+	(b-to-win a1 b1 7 8))
+
+(for/list ([j (in-range 13)])
+ (for/list ([i (in-range 13)])
+  (b-to-win-at-78 i j)))
+
+</pre>
+  <pre class="prettyprint">
+    
+> (load "win.rkt")
+'((0.0 0.14 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.16 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.16 0.24 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.16 0.24 0.32 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.16 0.24 0.32 0.4 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.0 0.08 0.16 0.24 0.32 0.4 0.48 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0 0 0 0 0 0 1 1 1 1 0)
+  (0.7 0.7 0.7 0.7 0.7 0.7 0.7 1 0 0 0 0 0)
+  (0.78 0.78 0.78 0.78 0.78 0.78 0.78 1 1 0 0 0 0)
+  (0.86 0.86 0.86 0.86 0.86 0.86 0.86 1 1 1 0 0 0)
+  (0.94 0.94 0.94 0.94 0.94 0.94 0.94 1 1 1 1 0 0)
+  (1 1 1 1 1 1 1 1 1 1 1 1 0))
+      
+</pre>
+
 
 <footer>
-  Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a>
+  Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a> | Github: <a href="https://github.com/ayaderaghul/evolgame" target="_blank"> repo </a>
   
-  </footer>
+</footer>
