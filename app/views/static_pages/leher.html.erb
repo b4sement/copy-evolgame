@@ -61,7 +61,7 @@ B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
 B2 | C | C | C | C | C | C | H | H | H | H  | H | H | H |
 
 </pre>
-
+<h2> Matching </h2>
 <p> The next question we ask, let's match A1 and B1, just to see. We know that the deck has 52 cards, comprising of 13 types of cards multiplied by 4 cards for a same number. So each player can receive one of those 13 possible cards. There can be 13*13 = 169 possible outcomes. Let's calculate the probability to win for B in these possible outcomes. </p>
 
 <pre>
@@ -120,7 +120,7 @@ A1 | C | C | C | C | C | C | C | C | H | H  | H | H | H |
 B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
 
 </pre>
-
+<p>
 Given an ace, both want to change the card. Hence with (Ace, Ace), and (Change, Change), things happen as follows: B changes. A knows that B now has Ace, and she knows that Ace loses to all other cards. So the probability to win for B in this case is 0. This translates into the action of putting 0 in the first cell. </p>
 
 <pre>
@@ -166,7 +166,6 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
    Q |   |   |   |   |   |   |   |   |   |    |   |   | 0 |
    K | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1 | 1 | 0 |
    
-   
 </pre>
 
 
@@ -188,7 +187,7 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
 
 <p> I always try to get a REPL, you may find online REPLs for many langs. </p>
 
-First, I write a function to see if one person want to change the card <code>x</code> or not. Because a strategy can be described as a threshold at which the person starts to hold the card, I call the parameter <code>xhold</code>.
+<p>First, I write a function to see if one person want to change the card <code>x</code> or not. Because a strategy can be described as a threshold at which the person starts to hold the card, I call the parameter <code>xhold</code>.</p>
 
 <pre class="prettyprint linenums:1">
   
@@ -197,8 +196,7 @@ First, I write a function to see if one person want to change the card <code>x</
   
 </pre>
 
-Second, I write a function to swap the cards, for B to swap if she decides to change:
-
+<p>Second, I write a function to swap the cards, for B to swap if she decides to change:</p>
 
   <pre class="prettyprint linenums:4">
 
@@ -207,7 +205,7 @@ Second, I write a function to swap the cards, for B to swap if she decides to ch
   
 </pre>
 
-Third, if A does not change her card during the play, we can just compare their cards to decide the probability to win of B. If A holds a card of at least as high as B, A wins.
+<p>Third, if A does not change her card during the play, we can just compare their cards to decide the probability to win of B. If A holds a card of at least as high as B, A wins.</p>
 
   <pre class="prettyprint linenums:7">
 
@@ -216,7 +214,7 @@ Third, if A does not change her card during the play, we can just compare their 
   
 </pre>
 
-After building the small pieces, now we can write the big function to calculate the probability to win of B in all cases:
+<p>After building the small pieces, now we can write the big function to calculate the probability to win of B in all cases:</p>
   <pre class="prettyprint linenums:10">
 
 ; for the sake of a later for loop
@@ -228,32 +226,39 @@ After building the small pieces, now we can write the big function to calculate 
   [(= b1 12) 1]
   [else
    (begin
-    (match-define (list a2 b2)
-     (if (change? b1 bhold) (swap a1 b1) (list a1 b1)))
-    (define a3 (if (>= a2 ahold) a2 -1))
-    (if (not (= a3 -1))
+   (match-define (list a2 b2)
+    (if (change? b1 bhold)
+        (swap a1 b1) (list a1 b1)))
+   (define a3 (if (change? b1 bold)
+               (if (< a2 b2) -1 a2)
+               (if (change? a2 ahold) -1 a2)))
+   (if (not (= a3 -1))
      (compare a3 b2)
      (exact->inexact (/ (+ (smaller b2 a2)
                         (if (< a2 b2) 4 0)) 50))))]))
   </pre>
 
-It seems long, but it is a flow of <code> cond </code> and <code> if </code>.
+<p>It seems long, but it is a flow of <code> cond </code> and <code> if </code>.</p>
 
-The first act of the game is when the two cards are first dealt, they are stored in variables a1 and b1 respectively. The first two corner cases we can check easily is when A or B gets the King. It goes sequentially so if it enters the second cond clause, it already means that A does not hold a King, and B automatically wins. If none holds a King, the second act of the game begins, with the question whether B wants to change her card or not.
+<ul>
+<li>The first act of the game is when the two cards are first dealt, they are stored in variables a1 and b1 respectively. The first two corner cases we can check easily is when A or B gets the King. It goes sequentially so if it enters the second cond clause, it already means that A does not hold a King, and B automatically wins. If none holds a King, the second act of the game begins, with the question whether B wants to change her card or not.</li>
 
-Define new variables a2 b2 to hold the card A and B have in the second act of the game: if B wants to change, the cards are swapped, if not, the cards stay the same but are hold in the new labels.
+<li>Define new variables a2 b2 to hold the card A and B have in the second act of the game: if B wants to change, the cards are swapped, if not, the cards stay the same but are hold in the new labels.</li>
 
-Then we proceed to the third act of the game: whether A gets a new random card from the deck or not, according to her strategy. If she holds, the card is the same and is stored in the new variable a3, if not, the variable a3 holds the number -1.
+<li>Then we proceed to the third act of the game: whether A gets a new random card from the deck or not, according to her strategy. If B swapped her card in the second act, now A knows what card B holds and she decides accordingly. If B holds her original card, A proceeds according to her strategy. Anyway, if A decides to hold her card, the card is stored in the new variable a3, if not, the variable a3 holds the number -1.</li>
 
-At this point the game course ends and we can check the card to see who wins. If A did not change the card in the third act, we can just compare a2 (or a3) and b2. If A draws a new card, to calculate the probability for B to win, we need to calculate the number of cards in the deck that is favorable to B.
+<li>At this point the game course ends and we can check the card to see who wins. If A did not change the card in the third act, we can just compare a2 (or a3) and b2. If A draws a new card, to calculate the probability for B to win, we need to calculate the number of cards in the deck that is favorable to B.
 
-A get the one that is smaller than the one currently in B's hand (b2).The number of cards in the deck that are smaller than b2 has to take into account the card already in A's hand.
+  <ul>
+    
+<li>A get the one that is smaller than the one currently in B's hand (b2).The number of cards in the deck that are smaller than b2 has to take into account the card already in A's hand.<li>
 
-if a2 is already smaller than b2 AND A get a King. in this case A has to return the King and accept the one she has (a2).
+<li>If a2 is already smaller than b2 AND A get a King. In this case A has to return the King and accept the one she has (a2).</li>
 
-For example, if b2 is 3 and a2 is 2 and A changes, B hopes for A to draw one of those 4 Aces, 3 Twos left in the deck, 4 Kings. If b2 is 3 and a2 is 4 and A changes, B hopes for A to draw one of those 4 Aces and 4 Twos in the deck. In this case, if A get a King, A returns the King and has 4 and still wins.
-
-So we write function <code> how-many-smaller </code>
+<li>For example, if b2 is 3 and a2 is 2 and A changes, B hopes for A to draw one of those 4 Aces, 3 Twos left in the deck, 4 Kings. If b2 is 3 and a2 is 4 and A changes, B hopes for A to draw one of those 4 Aces and 4 Twos in the deck. In this case, if A get a King, A returns the King and has 4 and still wins.</li>
+  </ul>
+</ul>
+<p>So we write function <code> how-many-smaller </code></p>
   <pre class="prettyprint linenums:27">
 
 (define (how-many-smaller b a)
@@ -264,33 +269,35 @@ So we write function <code> how-many-smaller </code>
 
 </pre>
 
-In the above function, variable counters are the range of cards smaller than the one B holding. And during the fold, if it happens to be equal to the one A currently holding, we only add 3 instead of 4.
+<p>In the above function, variable counters are the range of cards smaller than the one B holding. And during the fold, if it happens to be equal to the one A currently holding, we only add 3 instead of 4.</p>
 
-We can see that in the big funciton b-to-win, after counting how many smaller cards, we add 4 kings and then divide them all by 50. 50 is the number of cards currently in the deck (2 already in 2 players' hand).
+<p>We can see that in the big funciton b-to-win, after counting how many smaller cards, we add 4 kings and then divide them all by 50. 50 is the number of cards currently in the deck (2 already in 2 players' hand).</p>
 
-Now this function is to calculate the probability to win for A and B at each possible deal of the cards, regarding their strategy. If we fix the strategy, i.e. for A to hold from 7 and B to hold from 8, we can run a nested for loop through the range of 13 possible cards and generate a matrix for the 13*13=169 possible deals.
+<p>Now this function is to calculate the probability to win for A and B at each possible deal of the cards, regarding their strategy. If we fix the strategy, i.e. for A to hold from 7 and B to hold from 8, we can run a nested for loop through the range of 13 possible cards and generate a matrix for the 13*13=169 possible deals.</p>
 
   <pre class="prettyprint linenums:33">
-    
-(define (b-to-win-at-78 a1 b1)
-	(b-to-win a1 b1 7 8))
 
-(for/list ([j (in-range 13)])
- (for/list ([i (in-range 13)])
-  (b-to-win-at-78 i j)))
+; reminder: in the code, I count the card from 0
+(define (b-to-win-at-76 a1 b1)
+	(b-to-win a1 b1 7 6))
+
+(define matrix
+ (for/list ([j (in-range 13)])
+  (for/list ([i (in-range 13)])
+   (b-to-win-at-77 i j))))
 
 </pre>
   <pre class="prettyprint">
     
-> (load "win.rkt")
-'((0.0 0.14 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.16 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.16 0.24 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.16 0.24 0.32 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.16 0.24 0.32 0.4 0.54 0.62 0.7 0.78 0.86 0.94 0)
-  (0.0 0.08 0.16 0.24 0.32 0.4 0.48 0.62 0.7 0.78 0.86 0.94 0)
-  (0 0 0 0 0 0 0 0 1 1 1 1 0)
+> matrix
+'((0 0.14 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0.22 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0 0.3 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0 0 0.38 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0 0 0 0.46 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0 0 0 0 0 0 0.54 0.62 0.7 0.78 0.86 0.94 0)
+  (0.54 0.54 0.54 0.54 0.54 0.54 0.48 0 0 0 0 0 0)
+  (0.62 0.62 0.62 0.62 0.62 0.62 0.62 0 0 0 0 0 0)
   (0.7 0.7 0.7 0.7 0.7 0.7 0.7 1 0 0 0 0 0)
   (0.78 0.78 0.78 0.78 0.78 0.78 0.78 1 1 0 0 0 0)
   (0.86 0.86 0.86 0.86 0.86 0.86 0.86 1 1 1 0 0 0)
@@ -299,8 +306,61 @@ Now this function is to calculate the probability to win for A and B at each pos
       
 </pre>
 
+<p>  But this is not the end. The matrix we got is to describe the probability to win for B in each possible outcome. However, what's about the probability at which each of these outcomes happen? The outcome on the diagonal happens at the probability 4/52 * 3/51 because the probability to get an Ace is 4 out of 52 cards, after that the probability to get another Ace is 3 left out of 51 cards left. The probability of the outcome off diagonal happens at 4/52 * 4/51 each. We need to multiply each entry with the probability that it happens and then sum them all together to have the probability to win for B using the strategy B1.</p>
 
+<p>  Let's define another function to calculate the probability to win of B, with different thresholds to hold for both.</p>
+
+  <pre class="prettyprint linenums:42">
+
+(define (calculate ahold bhold)
+ (apply +
+  (for/list ([j (in-range 13)])
+   (apply +
+    (for/list ([i (in-range 13)]) 
+     (* (b-to-win i j ahold bhold) 
+      (if (= i j) (* (/ 4 52) (/ 3 51)) (* (/ 4 52) (/ 4 51)))))))))
+
+</pre>
+
+<p>  We multiply each entry with its probability to happen, and then we apply function plus over the whole row to get the sum of that row. Then we loop over the column.</p>
+
+<p>  Here are the result for 4 strategies A1 A2 B1 B2</p>
+
+  <pre>
+    ; Here I count the card from 1
+    
+     B \ A | Hold from 8 | Hold from 9
+   --------|-------------|-------------
+Hold from 7|    0.5118   |    0.5129
+Hold from 8|    0.5137   |    0.5118    
+    </pre>
+
+<p>  If you look at the table, you can see that, if A decides to hold the 8, B should change the 7 (because 0.5137 > 0.5118, due to weak definition of rationality: I prefer what is more). If A changes the 8, B should hold the 7.</p>
+
+<p>  What should B do? Waldegrave looked at it this way. And this is exactly how you would solve a game like this for mixed strategy in modern time. B assigns to variable c the probability that A would play A1, hence the probability to play A2 is 1-c.</p>
+
+  <pre>
+    ; Here I count the card from 1
+    
+     B \ A | Hold from 8 | Hold from 9
+   --------|-------------|-------------
+Hold from 7|    0.5118   |    0.5129
+Hold from 8|    0.5137   |    0.5118
+                  c            1-c    
+    </pre>
+
+<p>  B thinks like this:</p>
+<ul>
+  <li> If I play B1, there is c probability I get 0.5118, (1-c) probability I get 0.5129. The expected payoff I get is (0.5118 0.5129) (c 1-c).</li>
+  <li> If I play B2, the expected payoff I get is (0.5137 0.5118) (c 1-c). </li>
+</ul>
+<p>  If I solve for c at which these two expected payoffs equal, and plug back the c = 3/8 to find my expected payoff E(c) = 0.5125
+</p>
+
+<p>  .... TO BE CONTINUED ...</p>
+
+  
 <footer>
-  Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a> | Github: <a href="https://github.com/ayaderaghul/evolgame" target="_blank"> repo </a>
+  Please speak up if you feel like something deserves to be said: Discord: <a href="https://discord.gg/Jbjj6NS" target="_blank">chat</a> | Github: <a href="https://github.com/ayaderaghul/evolgame" target="_blank"> repo </a>
   
 </footer>
