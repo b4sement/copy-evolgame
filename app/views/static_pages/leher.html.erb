@@ -1,37 +1,53 @@
 <% provide(:title, "Le Her") %>
 
-<h1> Introduction </h1>
+<div class="tile is-ancestor">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+	<article class="tile is-child notification is-primary">
 
-<p class="videoframe">
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/bUjlIcKAi7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
+<h1 class="title"> Introduction </h1>
 
-<p><i>
-this is <a href="https://youtu.be/IWd-2HmtQ_Y" target="_blank">after</a> the cold bath</i>
-</p>
+<div class="videoframe">
+  <iframe height="400px" width="100%" style="height:400px !important;" src="https://www.youtube.com/embed/bUjlIcKAi7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <p><i>
+      this is <a href="https://youtu.be/IWd-2HmtQ_Y" target="_blank">after</a> the cold bath</i>
+  </p>
 
-<h1>le Her</h1>
+</div>
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">le Her</h2>
 <p>
 There is a book that talks about precursors in mathematical economics, in which mentions a Waldegrave who lived in late 17th century. He studied a game called <i>le Her </i> in French which is <i> the gentleman </i> in English and <i> der Herr </i> in German. He communicated with Monmort about his thoughts on how the game <i>should</i> be played. Monmort then forwarded the thread to Bernoulli and the three (variants said that there are some others) formed a slack.
 </p>
+<br>
 <p>
 Anyway, while the two latter mathematicians were discussing on ways of playing and the probability of winning for each way of playing, Waldegrave went further to describe a way of mixing over these <i>ways</i>, and made a remark that it was "such an unusual way of playing". It is truly remarkable that extra step Waldegrave took, especially because the way it is deducted seems just as natural as it seems strange.
 </p>
+	</article>
 
-<h2> The game </h2>
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">The game</h2>
 <i> adapted from Kuhn's description </i>
-<p> There are two players: A and B. A deals B a single card at random from an ordinary deck of cards, then deals a single card to himself; neither sees the card dealt to the other. The cards have value in order from the lowest to highest: ace, two, three.. ten, jack, queen, king.</p>
-
-<p> Who has higher card wins. So if B is not satisfied with his card, she can tell A to exchange cards, except if A has dealt herself a king, in that case A automatically wins. If B tells to exchange, and after the exchange, A is not happy, A can exchange it for another card dealt from the deck at random. </p>
-<p>However, if the third card dealt from the deck is a king, the exchange is not allowed and A has to keep her card and automatically loses. They now compare cards and who has higher card wins. If they hold equal cards, A wins.
+	  <p> There are two players: A and B. <br>
+<br>
+	    Act 1: A deals B a single card at random from an ordinary deck of cards, then deals a single card to himself; neither sees the card dealt to the other. The cards have value in order from the lowest to highest: ace, two, three.. ten, jack, queen, king.</p>
+<br>
+	  <p> Act 2: Who has higher card wins. So if B is not satisfied with his card, she can tell A to exchange cards, except if A has dealt herself a king, in that case A automatically wins.</p>
+	    <br>
+<p>	    Act 3: If B tells to exchange, and after the exchange, A is not happy, A can exchange it for another card dealt from the deck at random. However, if the third card dealt from the deck is a king, the exchange is not allowed and A has to keep her card and automatically loses.</p>
+	    <br>
+<p>	    They now compare cards and who has higher card wins. If they hold equal cards, A wins.
 </p>
 
-<h2> Different ways to play </h2>
+	  </article>
+
+	<article class="tile is-child notification">
+<h2 class="title"> Different ways to play </h2>
 <p>
-Because there are 13 possible cards, a way to play (a policy) need to describe to you what to do in all 13 cases in which you possibly receive one of those 13 cards.
-</p>
-
-<p> For player B, here is one such way, as an example: </p>
+Because there are 13 possible cards, a way to play (a policy) need to describe to you what to do in all 13 cases in which you possibly receive one of those 13 cards. For player B, here is one such way, as an example: </p>
 
 <pre>
 
@@ -41,15 +57,11 @@ Because there are 13 possible cards, a way to play (a policy) need to describe t
 
 </pre>
 
-<p>With C is to change the card, and H is to hold the card. We can see that, with 13 slots and each slot has 2 possible actions (C or H), the total possibility is 2^13. We can call one way to play a strategy, and the set of 2^13 strategy is the strategy set.</p>
-
-<p> Similarly, player A has the same strategy set. </p>
-
-<p> If we start to plot the 2^13 x 2^12 strategy space in our head, it gets difficult. </p>
-
-<p> Let's make a move that would drastically weed out strategies that seem to have no reason at all (i.e. the ones that are clearly <i>dominated</i> by other strategies). All the strategies in the form of a mixed sequence of C and H here and there (like, C C C H C C H C H..) are dominated by one of those 14 strategies with k first components are C and the rest are H (like C C C H H H H..) </p>
-
-<p> We have 14 strategies left, and we can go further to remove some of them. Think about the saying: change the low card and hold the high one. From B's point of view, if she is dealt a low card, she feels like to change and if dealt a high card, she feels like to keep. For B, the tie is at card 7. If dealt 8 and above, she keeps, if received 6 and below, she changes. If dealt 7, she needs to think. From A's point of view, the tie is at card 8. If dealt 8, she needs to think. All the other strategies are dominated by these ones. I plot these survived strategies in the following table:  </p>
+<p>In the above table, C is to change the card, and H is to hold the card. We can see that, with 13 slots and each slot has 2 possible actions (C or H), the total possibility is 2^13. We can call one way to play a strategy, and the set of 2^13 strategy is the strategy set. Similarly, player A has the same strategy set. If we start to plot the 2^13 x 2^12 strategy space in our head, it gets difficult. </p>
+<br>
+<p> Let's make a move that would drastically weed out strategies that seem to have no reason at all (i.e. the ones that are clearly <i>dominated</i> by other strategies). Think about the saying: change the low card and hold the high one. All the strategies in the form of a mixed sequence of C and H here and there (like, C C C H C C H C H..) are dominated by one of those 14 strategies with k first components are C and the rest are H (like C C C H H H H..) </p>
+<br>
+<p> We have 14 strategies left, and we can go further to remove some of them. Think again about the saying: change the low card and hold the high one. From B's point of view, if she is dealt a low card, she feels like to change and if dealt a high card, she feels like to keep. For B, the tie is at card 7. If dealt 8 and above, she keeps, if received 6 and below, she changes. If dealt 7, she needs to think. From A's point of view, the tie is at card 8. If dealt 8, she needs to think. All the other strategies are dominated by these ones. I plot these survived strategies in the following table:  </p>
 
 <pre>
 
@@ -61,8 +73,13 @@ B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
 B2 | C | C | C | C | C | C | H | H | H | H  | H | H | H |
 
 </pre>
-<h2> Matching </h2>
-<p> The next question we ask, let's match A1 and B1, just to see. We know that the deck has 52 cards, comprising of 13 types of cards multiplied by 4 cards for a same number. So each player can receive one of those 13 possible cards. There can be 13*13 = 169 possible outcomes. Let's calculate the probability to win for B in these possible outcomes. </p>
+
+	</article>
+
+	<article class="tile is-child notification is-light">
+
+	  <h2 class="title"> Matching </h2>
+<p> The next question we ask, let's match A1 and B1, just to see. We know that the deck has 52 cards, comprising of 13 types of cards multiplied by 4 cards for a same number. So each player can receive one of those 13 possible cards. There can be 13*13 = 169 possible outcomes. Let's calculate the probability to win for B in these possible outcomes and fill it in the following table. </p>
 
 <pre>
 
@@ -85,7 +102,7 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
    
    
 </pre>
-
+<br>
 <p> If A is dealt a K, A wins at 100%. Therefore the probability to win for B is 0 regardless of the card B got. So the last column is filled with 0. In case B is dealt a K, except for the case that A also get a K, B automatically wins. Therefore the last row (except the last column) is filled with 1. We fill in the table as follows:</p>
 
 
@@ -110,7 +127,7 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
    
    
 </pre>
-
+<br>
 <p> Now let's look at the first cell, it is the one that both are dealt an Ace. To know what to do next, we check their strategies A1 and B1: </p>
 <pre>
 
@@ -120,8 +137,10 @@ A1 | C | C | C | C | C | C | C | C | H | H  | H | H | H |
 B1 | C | C | C | C | C | C | C | H | H | H  | H | H | H |
 
 </pre>
-<p>
-Given an ace, both want to change the card. Hence with (Ace, Ace), and (Change, Change), things happen as follows: B changes. A knows that B now has Ace, and she knows that Ace loses to all other cards. So the probability to win for B in this case is 0. This translates into the action of putting 0 in the first cell. </p>
+<br>
+	  <p>
+	    
+Given an ace, both want to change the card. Hence with (Ace, Ace), and (Change, Change), things happen as follows: B changes. A knows that B now has Ace, and both knows that Ace loses to all other cards. So the probability to win for B in this case is 0. This translates into the action of putting 0 in the first cell. </p>
 
 <pre>
 
@@ -143,7 +162,7 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
    K | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1 | 1 | 0 |
    
 </pre>
-
+<br>
 <p> Cool, let's try the next cell. With (Ace, 2) and (Change, Change): B changes Ace for 2. A know knows that B has 2, and she changes. B can hope that A would get a card smaller than 2 (which is one of the 3 Aces left) or one of the 4 kings) because the rules say that if A get a King now, A cannot change and has to keep the Ace. The prospect is 7 cards out of the remaining 50 cards. The probability to win for B therefore is 7/50.</p>
 
 
@@ -169,32 +188,78 @@ B \ A| A | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | J | Q | K |
 </pre>
 
 
-<p> Mamma mia, let's try to automate the process of filling this table. </p>
+	</article>
 
-<p> Need: We need to write a function that inputs 2 strategies by 2 players, and 2 cards dealt to 2 players respectively and then outputs the probability to win for B.</p>
+	<article class="tile is-child notification is-light">
+	  <h2 class="title"> Mamma mia..</h2>
+<p> ...let's try to automate the process of filling in this table. </p>
 
-<p> We can articulate this task in the following steps: </p>
+<p> <b>Need</b> We need to write a function that inputs 2 strategies by 2 players, and 2 cards dealt to 2 players respectively and then outputs the probability to win for B.</p>
+<br>
+<p> Let's articulate this task in the following steps: </p>
 
-<ul>
-  <li> If A gets a King, the returned number is 0. </li>
-  <li> After we check for the above condition, we check whether B gets a King. If yes, the returned number is 1. Otherwise, move forward. </li>
-  <li> According to their strategies, do they want to change the card? </li>
-  <li> If B changes, she gets the card of A. At this point we know for sure the card B would hold. </li>
-  <li> If A changes, she gets a new card from the deck. At this point, we can count the number of cards in the deck that favor B. They are cards lower than the one B currently holding and all the Kings. </li>
+<ul class="list">
+  <li class="list-item"> If A gets a King, the returned number is 0. </li>
+  <li class="list-item"> After we check for the above condition, we check whether B gets a King. If yes, the returned number is 1. Otherwise, move forward. </li>
+  <li class="list-item"> According to their strategies, do they want to change the card? </li>
+  <li class="list-item"> If B feels like the card she is holding is too low, B tells A to exchange. At this point we know for sure the card B would hold when the game ends. </li>
+  <li class="list-item"> If A changes, she gets a new card from the deck. At this point, we can count the number of cards in the deck that favor B. They are cards lower than the one B currently holding and all the Kings. </li>
 </ul>
 
-<p> With this description, you can proceed to express the task in the language of your choice. I would write in Racket but I do understand and code in other languages (Python, Ruby, Go, C) and I would like to learn more about other languages (Clojure, R, Matlab etc) so if you have solutions in these languages I would still like to have a look. </p>    
+	  <p> With this description, you can proceed to express the task in the language of your choice. I would write in Racket but I do understand and code in other languages (Python, Ruby, Go, C) and I would like to learn more about other languages (Clojure, R, Java, Matlab etc) so if you have solutions in these languages I would still like to have a look. </p>    <br>
 
-<p> I always try to get a REPL, you may find online REPLs for many langs. </p>
+	</article>
+	<article class="tile is-child notification is-light">
+<h2 class="title"> Piece 1</h2>
+<p> <a href="https://repl.it">repl.it</a> is one of the best things that happens in the Matrix. Don't unplug :) </p>
+<br>
+<p>First, let's write small pieces of codes that can be put together into a solution later. The firs piece is a function to see if one person want to change the card <code>x</code> or not. Because a strategy can be described as a threshold at which the person starts to hold the card, I call the parameter <code>xhold</code>.</p>
 
-<p>First, I write a function to see if one person want to change the card <code>x</code> or not. Because a strategy can be described as a threshold at which the person starts to hold the card, I call the parameter <code>xhold</code>.</p>
-
-<pre class="prettyprint linenums:1">
-  
+<pre>
   (define (change? x xhold)
-  (>= x xhold))
-  
+   (>= x xhold))
 </pre>
+<br>
+I don't feel like I can lecture about the poetry of S-expression. For that, please read the book: <a href="https://htdp.org/">How to Design Programs</a> and the blog: <a href="http://paulgraham.com/">Paul Graham on LISP</a>. Here I give you my short take: think of an expression as a sentence which is wrapped in a pair of brackets. Every expression starts with a verb that do something to the objects after that verb. All expressions evaluate to some value (number, string, etc) so you can nest sentence inside sentence.
+<pre>
+  (buy milk eggs)
+  (sleep)
+  (take ice-bath)
+  (fry (mix milk eggs flour))
+</pre>
+<br>
+<code>define</code> is a bit different. <code>define</code> defines stuff, like new objects and new verbs.
+
+<pre>
+  (define apple orange)
+  ; here we define the orange to be apple
+  ; in other words, the symbol apple now holds the value orange
+  (define + *)
+  ; the symbol + now holds the action multiply
+  (define (cut x) ; here we define new verb
+   (take-out knife)
+   (push knife x))
+</pre>
+<br>
+
+Back to the card game and the function <code>change?</code> we just wrote. Before we start with examples, let's set a convention that is a bit unusual for non-coders but very natural for coders: we count the card from 0 to 12 instead of Ace to King. As you can see that the function inputs 2 parameters: <code>x</code> and <code>xhold</code>. If I receive card 2, <code>x = 1</code>. If my threshold to hold is card 8, <code>xhold = 7</code>. In the following repl, you see on top of the frame a green arrow button (<code>Run</code>), and then a white-background editor to write the code. I already wrote the definition of the function and some other <code>print</code> function to print out 2 examples. Below that is a black-background repl that you can speak Racket (Scheme) with it because it understands. For now the repl only speak pure Racket, and if you type in the example <code>(change? 1 7)</code> it would replies that <code>unbound symbol</code>. It does not understand <code>change?</code> yet. To make it understand, you click the <code>Run</code> button. The repl would now have a new word (<code>change?</code>) in its vocab. Cool huh? It means that if you teach it new stuff, the repl can start to converse with you about life and universe. After clicking <code>Run</code>, you can play around a bit and try some other examples.
+
+	  <iframe height="400px" width="100%" style="height:500px !important;" src="https://repl.it/@ayaderaghul/test?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+	  Please write the code in the lang you want: Python, C, Ruby, Java, R, Matlab.. and give it to me (or give me the gist), I publish them.
+	  
+	  </article>
+	
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 <p>Second, I write a function to swap the cards, for B to swap if she decides to change:</p>
 
