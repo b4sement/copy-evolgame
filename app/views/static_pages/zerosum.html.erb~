@@ -1,0 +1,18 @@
+<% provide(:title, "Zero sum") %>
+
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+	<article class="tile is-child notification is-primary">
+
+<h1 class="title"> The mountain hikers (zero sum game) </h1>
+
+<article class="tile is-child notification is-primary">
+
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">Preference</h2>
+Decision theory is the theory about how individual makes their decision. The central notion of this theory is the concept of a preference. To the point that I would claim: I prefer, therefore I am. I believe that the hallucinating experience of life starts when you start to know to prefer. In other words, at the beginning, God says: let there be preference.

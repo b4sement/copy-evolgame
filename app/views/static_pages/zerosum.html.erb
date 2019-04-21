@@ -1,0 +1,109 @@
+<% provide(:title, "Zero sum") %>
+
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+	<article class="tile is-child notification is-primary">
+
+<h1 class="title"> The mountain hikers (zero sum game) </h1>
+
+<article class="tile is-child notification is-primary">
+
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">Prelude</h2>
+
+	<p>  This example I adapted from the book of John D. Williams because I know a friend that loves climbing mountains too much and coincidentally we end up in a situation that is similar to the very first example Williams used to illustrate the very essence of the game theory of von Neumann: the maximin concept (the other word is a saddle point). You do not need to know what the word maximin means right now, just read on and enjoy the view. At the end, I would explain the word maximin and zero-sum game.</p>
+
+
+<p>
+	  So, the story goes that, there is a couple that want to go camping together in the Dolomites, Italy.
+</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/egZ13Epott0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>
+<i> I climbed this ~2000 *barehand* </i>
+</p>
+
+<p>	  They want to explore the Gruppo del Sella (Sella Group). There are different trails you can take to enjoy the panoramic view(*).
+
+(*) skiers and bikers love the Sellaronda (the tour around Sella group)
+</p>
+
+<p>
+The thing is, the two hikers have different preferences. The male prefers as high altitude as possible. The female prefers as low altitude as possible otherwise she complains. So they agree that the male would climb from the west side and the female climbs from the north. They camp together at the crossroad. 
+</p>
+<p>	  So here are the possible routes with the altitude. Please note that for the sake of the example, I actually make up some routes that are not realistic or practical, I also make up some altitudes... Do not print out my map for your trip. Go <a href="http://www.veramontagna.it/Trentino/Val-di-Fassa/Gruppo_del_Sella/Traversata-del-Gruppo-del-Sella-da-Passo-Gardena-a-Passo-Pordoi.">here</a>
+</p>
+
+	  <img src="https://c10.patreonusercontent.com/3/eyJ3IjoxMjQwfQ%3D%3D/patreon-media/p/post/15926625/db4678ed88c04c30ad54f3c973fac36e/1.jpg?token-time=1557014400&token-hash=EHkzs5EVZbe6IVeFX11n2ski-WU0OBtvwTn-J1hWRTw%3D">
+
+
+<p>	  The male would go from the left to the right of the map and the female goes from the top to the bottom. Here is the matrix that is easier to see:
+</p>
+<img 	  src="https://c10.patreonusercontent.com/3/eyJ3IjoxMjQwfQ%3D%3D/patreon-media/p/post/15926625/95e619319994450a912b0ecab2df507b/1.jpg?token-time=1557014400&token-hash=TlpJslO5_7ZmZ0Bi2jcHR2gyPXBBEXtAHaF5qbRin-Y%3D">
+
+
+<p>	  The male can choose from routes B1, B2 or B3 with the altitudes listed inside the matrix. The female chooses from routes G1, G2, G3 or G4.
+</p>
+<p>Clearly they want to make this affair to happen. How would game theory helps them to think this clear?
+</p>
+</article>
+<article class="tile is-child notification is-light">
+  <h2 class="title"> 1</h2>
+The male would think as follows:
+
+<p>	  Route B3 seems very alluring to me because it would give me altitudes of 2239m, 2950m, 3152m and 1875m. I would love to be at the top Piz Boe at 3152m because it is one of the spectacular of the Sella Group. However, if I choose this route, and she chooses the route G4, we would actually camp at the junction of 1875m (Passo Campolongo) and this altitude is unbreathable to me. I would not risk choosing B3.
+</p>
+	  <img src="https://c10.patreonusercontent.com/3/eyJ3IjoxMjQwfQ%3D%3D/patreon-media/p/post/15926625/69aa1ff121e8463285e4a56b3c6e100f/1.jpg?token-time=1557014400&token-hash=RU7u5bbO0dqcJggw2VTNcz84hCnhlHLyowXVPdaD86s%3D">
+
+
+<p>	  So he starts to use the same criterion to look at other routes. For each route, he circles the lowest point. In route B1, the lowest point is 2136m. In route B2, the lowest point is 2200m. In route B3, the lowest point is 1875m.
+</p>
+<p>
+Now among these lowest points, he notices that the point 2200m is the highest. So it is the highest point among the lowest points. Which means that Route B2 gives the highest of the lowest points. He finds B2 to be a safe route to choose, in the case his partner wants to get as low as possible.
+</p>
+</article>
+
+<article class="tile is-child notification is-light">
+  <h2 class="title"> 2 </h2>
+	  From the point of view of the female, she would consider in similar way:
+
+	  <img src="https://c10.patreonusercontent.com/3/eyJ3IjoxMjQwfQ%3D%3D/patreon-media/p/post/15926625/3d2b3e4d87074ae38b4973153baf7680/1.jpg?token-time=1557014400&token-hash=ijD3zs1Ca_gjqFXb0es7WG-Ido3QpJsaxiGNo50Lv3s%3D">
+
+	  She would start by looking at each separate route and identify the highest point possible that the route offers. She wants to enjoy the affair without dying. The highest point of route G1 is 2848m. The highest point of route G2 is 2953m. The highest point of route G3 is 3152m. The highest point of route G4 is 2200m. She circles all the highest points of each route.
+
+Among these highest points, she notices that the lowest point is 2200m and this belongs to route G4. For her, the route G4 provides a safe route because the highest her partner can make her camp is at 2200m. If she chooses other routes, her partner can make her to camp higher and she would not want to risk that. So she feels route G4 to be safe.
+</article>
+
+<article class="tile is-child notification is-light">
+<h2 class="title">3</h2>
+
+We can see that, with this kind of reasoning for both sides, they would end up choosing route B2 and route G4 and they end up camping at 2200m (Lago Boe). Peace.
+</article>
+<article class="tile is-child notification is-light">
+<h2 class="title">4</h2>
+
+This example illustrates the core of von Neumann thinking: you would want to choose in the way that, even when your opponent hates you, you can still have the best of the worst they want to inflict on you. 
+
+Using the language of game theory, two hikers are two players because they are interested in different things. They have distinct interests. Otherwise they would have been considered one player, even though they are two persons. And the altitude corresponds to their enjoyment, which is called the payoff. Higher altitude means higher payoff to the male, and it means lower payoff to the female.
+
+We interpret again the above thinking: 
+
+    Because your opponent want to minimise your payoff, you want to maximise among the minimal payoffs they can give you. 
+
+And this is where the word maxi-min comes from. Maximin strategy is one of the legacy of von Neumann for game theory. Another word to describe this situation is a saddle point. It is a saddle point because it feels like the surface of a saddle: the boy is reaching the minimum from one side and the girl is reaching the maximum from an other side.
+
+Another thing to note is that this is a zero sum game:
+
+    A zero sum game is a game in which the interests of the two players directly oppose each other. 
+
+In our example, the higher he is, the lower she feels and vice versa. This is another main contribution of von Neumann to early game theory. To the point that if you say zero sum game, you mean the game theory of von Neumann. Another example of a zero sum game that explains better the word zero sum is chess. In chess, if White wins then Black loses and vice versa. Let's say White wins and gets the payoff (reward) of 1 unit of prize. Then it simultaneously means that Black loses and gets the payoff of -1. Or we can say that Black has to pay out 1 unit of prize, in this case, Black pays to White 1 unit. 1 + (- 1) = 0 hence this is called the zero sum game.
+	</article>
+</article>
+      </div>
+    </div>
+  </div>
+  </div>

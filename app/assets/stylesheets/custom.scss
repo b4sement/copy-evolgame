@@ -15,5 +15,8 @@ body {
 .videoframe {
     width: 100%;
     max-width: 560px;
-    height: auto;
+}
+
+iframe{
+    height: 315px !important;
 }

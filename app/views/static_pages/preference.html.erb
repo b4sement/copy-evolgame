@@ -1,0 +1,95 @@
+<% provide(:title, "Preference") %>
+
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+	<article class="tile is-child notification is-primary">
+
+<h1 class="title"> Decision theory and preference construction </h1>
+
+
+
+<article class="tile is-child notification is-primary">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/UPljVnnm2og" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <p> This is Pasqua's firework in my town. By Alex.</p>
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">Preference</h2>
+Decision theory is the theory about how individual makes their decision. The central notion of this theory is the concept of a preference. To the point that I would claim: I prefer, therefore I am. I believe that the hallucinating experience of life starts when you start to know to prefer. In other words, at the beginning, God says: let there be preference.
+
+At this point, let's say some side words on maths. So far I have been resisting to speak in mathematic language, because I was afraid it would deter you. Now I think that we are at the point of crossing that myth - the myth that mathematics is something detached from life. No, mathematics is life.
+
+Back on track,
+
+    In his lectures on microeconomics, Ariel Rubinstein says that a preference is a mental attitude toward alternatives. 
+
+The attitude toward alternatives is what you feel like about them. When you have different objects, it would be neat if you can have a complete structure of how you feel about them. Which means that you can find clarity in putting them into relationship with each other.
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title">Building blocks</h2>
+Let's firstly summon the objects. Say we have different objects x, y and z and many others. These objects are distinct, so we call them alternatives. By calling them alternatives, we expand the capability of our theory. Alternatives can be different scenarios or different whatevers. The subject of our choice does not have to be an object. We can choose between two life paths, and we call them alternative x and alternative y.
+
+Second let's define a set. We put these alternatives into a basket X. And this basket X is a set. A set is a collection of distinct objects, and can be considered an object in its own right. These objects in the set are called elements of the set.
+
+After having the alternatives in the set, we can naturally think of a structure of how I feel about these elements in the set. And this structure is called a relation R. If we know element x and element y in set X and we know they have some kind of relationship with each other, we can say x R y.
+
+Pushing the vague intuition of "how I feel about these" to its limit, a preference structure is about comparing between two elements. It should be our starting point. There is no meaning in having a preference structure that can compare only one object. Of course you can have it. It just does not create fascinating stuff right now. You can also have a preference structure that compare three objects each time. It is just a bit too complicated and there is a more viable and parsimonious solution of defining a preference structure that compare things in pairs. I cannot explain any more. Boh. This universe works this way.
+
+So we settle with the agreement that a preference is a binary relation. Binary is something that has two values. A binary relation is something that can put order between two things. I take this definition from the famous book of Andreu Mas-Colell:
+
+    We denote the preference relation by the symbol R. Technically, R is a binary relation on the set of alternatives X, allowing the comparison of pairs of alternatives x, y in X.
+
+    We read x R y as "x is at least as good as y".
+
+Let's practise using these new mathematical symbols we just learned, so that we can force some new neural pathways to be formed hence over time it would get less painful to speak maths :) If I say I have a preference R over the set X, it means that you can take out two objects in the basket X and I can tell you the relationship between these two objects in my mental mind. In other words, I can tell you my comparison of them. By the way, my comparison of them is that "x is at least as good as y".
+
+
+
+
+	</article>
+
+	<article class="tile is-child notification is-light">
+	  <h2 class="title"> The rationality requirement of a preference</h2>
+
+	  Now I can have many preference structure over the set X. For example, I can have a broken preference S over X. Which means that if you take out x and y in the basket X, I can compare them (i.e. I can say x S y). But when you take out y and z in X, I do not know what to say about them. I go "error!". Or in the words of computer scientists, I throw an exception.
+
+It would be neat, you might think, to have a good preference over set X. A preference that is at least not broken. At this point you can have a vague idea that a good preference has to be able to respond to all the pairs in the basket X. Which means that, if I take out any pair of objects from the basket X, you have to be able to say something. If I take objects from outside basket X, then you can stay silent it is fine. 
+
+This kind of requirement is called completeness. 
+
+    A preference is complete when it is possible to say x R y for any x and y in X.
+
+
+A second requirement is that a good preference structure should have some sort of logical deduction in itself. For example, if I am able to tell the relationship between x and y (x R y), and then I tell the relation between y and z (y R z), you might expect that at least I should be able to tell the relation between x and z (x R z), given that x, y and z are all in basket X.
+
+This condition is called transitivity.
+
+    For all x, y and z in X, if x R y and y R z, then x R z.
+
+In brief, a complete and transitive preference is called a rational preference.
+
+
+Now we have a rational preference, what to do with it? To rank the alternatives. We rank'em all! And we rank them neatly. Let's say I may prefer x a little bit more than y. So I can rank object x over object y. With this prefer-ence, you can actually rank all alternatives in a well-defined structure, as long as they belong in the basket X. Which means that you can spill out the whole set X, and start to arrange them into a ranking table. And you would be able to rank all of them. Nothing breaks. Completeness condition makes sure that you are able to rank between any two objects. And transitivity assures that a cyclic ranking cannot happen. A cyclic ranking is the following: you prefer x over y, you prefer y over z, but then you prefer z over x. If the transitivity condition is not policing all over the place, this cycle can happen and you cannot put x, y and z into the ranking table in the classic manner of a ranking structure. Except when you create the possibility for the ranking structure to hold a cyclic state(*).
+
+(*) which does not sound too bad, in fact it actually sounds good to me, but it is the topic of an extension.
+
+	</article>
+
+	<article class="tile is-child notification is-light">
+
+	  <h2 class="title"> Some property</h2>
+
+	  Does this kind of structure remind you of something? Does it feel familiar? Does it feel like the set N of natural numbers? Yes. But there is a difference. The distances between consecutive natural numbers are all equal, and equal one unit. Therefore the distance between two natural numbers count. For example, the distance between 4 and 10 (which is 6) is double the distance between 0 and 3 (which is 3). On the contradistinction, the distances between consecutive objects in the ranking table created by a rational preference do not count. So it means that x can be above y, but it does not matter how much above. It is above. Then y can be above z, so we know x is above z but we do not know how much x is above z. The only information we know is that it is above.
+
+This is called ordinal property. We would talk about ordinal and cardinal later. 
+	  </article>
+	</article>
+      </div>
+    </div>
+  </div>
+  </div>
