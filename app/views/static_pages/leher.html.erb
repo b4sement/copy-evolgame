@@ -17,6 +17,15 @@
 </div>
 	</article>
 
+	<article class="tile is-child notification is-warning">
+
+	  <h2 class="title"> Summary </h2>
+	  <p>
+In this lesson, I would describe a letter exchange among 3 mathematicians from the 17th century. It is about a simple card game named <i>le Her</i> between two people and they use it to discuss about the probability. The exchange is about how the game should be played according to probability calculation. I would provide code examples to automate the calculation. You would learn both game theory and coding :)
+
+	  </p>
+	  </article>
+
 	<article class="tile is-child notification is-light">
 	  <h2 class="title">le Her</h2>
 <p>
@@ -44,6 +53,63 @@ Anyway, while the two latter mathematicians were discussing on ways of playing a
 
 	  </article>
 
+		<article class="tile is-child notification is-light">
+		  <h2 class="title">Examples</h2>
+
+		  <p>
+		    Example 1: In act 1, A and B are dealt two cards (K, 9). A wins.
+		   </p> <br>
+
+		  		  <p>
+		    Example 2: In act 1, A and B are dealt two cards (9, K). B does not want to exchange the card. The game ends. B wins.
+		   </p> <br>
+
+				  		  		  <p>
+		    Example 3: In act 1, A and B are dealt two cards (K, K). B does not want to exchange the card. The game ends. A wins (because A wins when they have equal cards).
+		   </p> <br>
+
+
+		  <p>
+		    Example 4: In act 1, A and B are dealt two cards (2, 9).<br>
+		    In act 2, B feels like card 9 is a high card and the probability to win is high therefore B does not want to exchange the card with A. The cards are still (2,9)
+		    <br>
+		    The game ends. They compare cards and B has higher card, B wins.
+		  </p> <br>
+
+		  <p>
+		    Example 5: In act 1, A and B are dealt (8, 3).<br> In act 2, B feels like the card 3 is too low therefore B wants to exchange the card with A. The cards now are (3, 8).<br>
+		    In act 3, A has the card 3 and B has the card 8. A knows that B has card 8 now, and A knows that card 8 is bigger than card 3 therefore A wants to change A's card with a random card from the deck. Let's say it is a 10. The cards now are (10, 8)
+		    <br>
+The game ends. They compare cards, because 10 is higher than 8, A wins.
+		    
+		  </p>
+<br>
+		  		  <p>
+		    Example 6: In act 1, A and B are dealt (3, 4).<br> In act 2, B feels like the card 4 is too low therefore B wants to exchange the card with A. The cards now are (4, 3).<br>
+		    In act 3, A has the card 4 and B has the card 3. A knows that B has card 3 now, and A knows that card 3 is smaller than card 4 therefore A does not want to get a new random card from the deck. The cards now are (4, 3).
+		    <br>
+The game ends. They compare cards, because 4 is higher than 3, A wins.
+		    
+		  </p>
+
+			<br>	  		  		  <p>
+		    Example 7: In act 1, A and B are dealt (J, 4).<br> In act 2, B feels like the card 4 is too low therefore B wants to exchange the card with A. The cards now are (4, J).<br>
+		    In act 3, A has the card 4 and B has the card J. A knows that B has card J now, A knows that card 4 is smaller than J so she wants to get a new random card from the deck. A gets card Q. The cards now are (Q, J).
+		    <br>
+The game ends. They compare cards, because Q is higher than J, A wins.
+		    
+		  </p>
+
+						<br>	  		  		  <p>
+		    Example 8: In act 1, A and B are dealt (J, 4).<br> In act 2, B feels like the card 4 is too low therefore B wants to exchange the card with A. The cards now are (4, J).<br>
+		    In act 3, A has the card 4 and B has the card J. A knows that B has card J now, A knows that card 4 is smaller than J so she wants to get a new random card from the deck. A gets card King. She is not allowed to exchange. The cards now are (4, J).
+		    <br>
+The game ends. They compare cards, because J is higher than 4, B wins.
+		    
+		  </p>
+
+</article>
+	
 	<article class="tile is-child notification">
 <h2 class="title"> Different ways to play </h2>
 <p>
@@ -246,7 +312,9 @@ Back to the card game and the function <code>change?</code> we just wrote. Befor
 
 	  <iframe height="400px" width="100%" style="height:500px !important;" src="https://repl.it/@ayaderaghul/test?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
-	  Please write the code in the lang you want: Python, C, Ruby, Java, R, Matlab.. and give it to me (or give me the gist), I publish them.
+	  Please write the code in the lang you want: Python, C, Ruby, Java, R, Matlab.. and give it to me (or give me the gist), I publish them. Here is the code in Python:
+
+	  <iframe height="400px" width="100%" style="height:500px !important" src="https://repl.it/@ayaderaghul/change-python?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 	  
 	  </article>
 	
